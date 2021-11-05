@@ -1,4 +1,4 @@
-# commit message 형식
+# commit message template
 
 ```
 # <타입>: <제목>
@@ -28,4 +28,27 @@
 #     본문은 "어떻게" 보다 "무엇을", "왜"를 설명한다.
 #     본문에 여러줄의 메시지를 작성할 땐 "-"로 구분
 # ------------------
+```
+
+# PR template
+```
+## 개요
+- 내용을 적어주세요.
+ 
+## 작업사항
+- 내용을 적어주세요.
+ 
+## 변경로직(optional)
+- 내용을 적어주세요.
+```
+
+# issue template
+```
+## Description
+ description
+
+## Progress
+
+- [x] todo1
+- [ ] todo2
 ```

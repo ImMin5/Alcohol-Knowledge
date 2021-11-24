@@ -107,3 +107,8 @@ dist
 .idea
 .gradle
 .DS_Store
+build/
+*.iml
+/out/
+
+

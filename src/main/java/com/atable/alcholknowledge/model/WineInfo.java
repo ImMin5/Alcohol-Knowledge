@@ -16,12 +16,14 @@ public class WineInfo {
     private String region;
     private String size;
 
+    public long getPk(){ return this.pk;}
+    public void setPk(long pk){ this.pk = pk;}
     public int getPrice(){return this.price;}
     public void setPrice(int price){ this.price = price;}
     public WineInfo getInfo(){
         return this;
     }
-    public void setInfo(long pk, String nameEng, String nameKor, int vintage, int price, Timestamp dateCreated, Date datePurchase,
+    public void setInfo( String nameEng, String nameKor, int vintage, int price, Timestamp dateCreated, Date datePurchase,
                         String desc, String store, String region, String size){
         this.pk = pk;
         this.nameEng = nameEng;

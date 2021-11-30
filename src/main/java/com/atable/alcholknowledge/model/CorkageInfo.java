@@ -2,20 +2,20 @@ package com.atable.alcholknowledge.model;
 
 import java.sql.Timestamp;
 
-public class CorkageInfos {
+public class CorkageInfo {
 
-    private int id;
+    private long id;
     private String desc;
     private int isChecked;
     private String addr;
     private Timestamp dateCreate;
     private String user;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

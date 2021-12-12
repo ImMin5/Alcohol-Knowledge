@@ -9,5 +9,6 @@ public interface WineInfoRepository {
     WineInfo save(WineInfo wineinfo);
     Optional<WineInfo> findById(Long id);
     Optional<WineInfo> findByNameEng(String nameEng);
+    List<WineInfo> findByNameKor(String nameKor);
     List<WineInfo> findAll();
 }

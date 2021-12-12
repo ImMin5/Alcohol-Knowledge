@@ -2,6 +2,7 @@ package com.atable.alcholknowledge.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Locale;
 
 public class WineInfo {
     private long pk;
@@ -16,6 +17,12 @@ public class WineInfo {
     private String region;
     private String size;
 
+    public String getNameKor(){return this.nameKor;}
+    public void setNameKor(String nameKor){ this.nameKor = nameKor;}
+    public String getNameEng(String nameEng){
+        this.nameEng.toLowerCase().contains(nameEng.toLowerCase());
+        return this.nameEng;
+    }
     public long getPk(){ return this.pk;}
     public void setPk(long pk){ this.pk = pk;}
     public int getPrice(){return this.price;}

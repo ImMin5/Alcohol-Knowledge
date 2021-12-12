@@ -1,6 +1,8 @@
 package com.atable.alcholknowledge.repository;
 import com.atable.alcholknowledge.model.WineInfo;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,6 +27,17 @@ public class MemoryWineInfoReository implements WineInfoRepository{
     @Override
     public Optional<WineInfo> findByNameEng(String nameEng) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<WineInfo> findByNameKor(String nameKor) {
+        ArrayList<WineInfo> list = new ArrayList<>();
+        for( Map.Entry<Long, WineInfo> entryset : wineinfos.entrySet()){
+            if(entryset.getValue().getNameKor().equals(nameKor)){
+                list.add(entryset.getValue());
+            }
+        }
+        return list;
     }
 
     @Override

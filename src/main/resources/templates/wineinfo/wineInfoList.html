@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>영문이름</th>
+        <th>한글 이름</th>
+        <th>빈티지</th>
+        <th>가격</th>
+        <th>구매일</th>
+        <th>사이즈</th>
+        <th>지역</th>
+        <th>매장</th>
+        <th>설명</th>
+        <th>정보 생성일</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="wineinfo : ${wineInfos}">
+        <td th:text="${wineinfo.pk}"></td>
+        <td th:text="${wineinfo.nameEng}"></td>
+        <td th:text="${wineinfo.nameKor}"></td>
+        <td th:text="${wineinfo.vintage}"></td>
+        <td th:text="${wineinfo.price}"></td>
+        <td th:text="${wineinfo.datePurchase}"></td>
+        <td th:text="${wineinfo.size}"></td>
+        <td th:text="${wineinfo.region}"></td>
+        <td th:text="${wineinfo.store}"></td>
+        <td th:text="${wineinfo.desc}"></td>
+        <td th:text="${wineinfo.dateCreated}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
+>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <form action="/wineinfo/new" method="post">
+    <div class="form-group">
+      <label for="nameEng">영문 이름</label>
+      <input type="text" id="nameEng" name="nameEng" placeholder="영문이름을입력하세요">
+      </br>
+      <label for="nameKor">한글 이름</label>
+      <input type="text" id="nameKor" name="nameKor" placeholder="한글이름을입력하세요">
+      </br>
+      <label for="vintage">빈티지</label>
+      <input type="number" id="vintage" name="vintage" placeholder="빈티지">
+      </br>
+      <label for="price">가격</label>
+      <input type="number" id="price" name="price" placeholder="가격을 입력하세요">
+      </br>
+      <label for="size">사이즈</label>
+      <input type="text" id="size" name="size" placeholder="가격을 입력하세요">
+      </br>
+      <label for="datePurchase">구매일</label>
+      <input type="date" id="datePurchase" name="datePurchase" placeholder="구매일자">
+      </br>
+      <label for="datePurchase">구매지역</label>
+      <input type="text" id="region" name="region" placeholder="구매 지역">
+      </br>
+      <label for="store">구매 매장</label>
+      <input type="text" id="store" name="store" placeholder="구매매장">
+      </br>
+      <label for="desc">참고사항</label>
+      <textarea id="desc" name="desc" rows="5" cols="33">할인 내역, 이벤트등 참고사항을 작성해주세요</textarea>
+      </br>
+
+    </div>
+    <button type="submit">등록</button>
+  </form>
+</div> <!-- /container -->
+</body>
+</html>

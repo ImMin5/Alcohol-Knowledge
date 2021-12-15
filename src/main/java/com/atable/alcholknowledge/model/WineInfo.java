@@ -2,22 +2,31 @@ package com.atable.alcholknowledge.model;
 
 import com.atable.alcholknowledge.controller.WineInfoForm;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Locale;
 
+@Entity
+@Table(name="wineinfo")
 public class WineInfo {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk;
+    @Column(name="nameeng")
     private String nameEng;
+    @Column(name="namekor")
     private String nameKor;
     private int vintage;
     private int price;
+    @Column(name="datecreated")
     private Timestamp dateCreated;
+    @Column(name="datepurchase")
     private Date datePurchase;
-    private String desc;
+    private String description;
     private String store;
     private String region;
-    private String size;
+    @Column(name="sizebottle")
+    private String sizeBottle;
 
     public void setNameEng(String nameEng) {this.nameEng = nameEng; }
 
@@ -30,8 +39,8 @@ public class WineInfo {
     public Date getDatePurchase() {return datePurchase; }
     public void setDatePurchase(Date datePurchase) {this.datePurchase = datePurchase; }
 
-    public String getDesc() {return desc; }
-    public void setDesc(String desc) {this.desc = desc; }
+    public String getDescription() {return description; }
+    public void setDescription(String desc) {this.description = description; }
 
     public String getStore() {return store; }
 
@@ -41,9 +50,9 @@ public class WineInfo {
 
     public void setRegion(String region) {this.region = region; }
 
-    public String getSize() {return size;}
+    public String getSizeBottle() {return sizeBottle;}
 
-    public void setSize(String size) {this.size = size; }
+    public void setSizeBottle(String sizeBottle) {this.sizeBottle = sizeBottle; }
 
     public String getNameKor(){return this.nameKor;}
     public void setNameKor(String nameKor){ this.nameKor = nameKor;}
@@ -65,10 +74,13 @@ public class WineInfo {
         this.price = form.getPrice();
         this.dateCreated = form.getDateCreated();
         this.datePurchase = form.getDatePurchase();
-        this.desc = form.getDesc();
+        if(form.getDescription().isEmpty())
+            this.description = "";
+        else
+            this.description = form.getDescription();
         this.store = form.getStore();
         this.region = form.getRegion();
-        this.size = form.getSize();
+        this.sizeBottle = form.getSizeBottle();
     }
     //String nameEng, String nameKor, int vintage, int price, Timestamp dateCreated, Date datePurchase,
     //                        String desc, String store, String region, String size

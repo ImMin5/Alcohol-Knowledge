@@ -10,10 +10,10 @@ public class WineInfoForm {
     private int price;
     private Timestamp dateCreated;
     private Date datePurchase;
-    private String desc;
+    private String description;
     private String store;
     private String region;
-    private String size;
+    private String sizeBottle;
 
     public String getNameEng() {
         return nameEng;
@@ -63,12 +63,12 @@ public class WineInfoForm {
         this.datePurchase = datePurchase;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
     public String getStore() {
@@ -87,11 +87,11 @@ public class WineInfoForm {
         this.region = region;
     }
 
-    public String getSize() {
-        return size;
+    public String getSizeBottle() {
+        return this.sizeBottle;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setSizeBottle(String sizeBottle) {
+        this.sizeBottle = sizeBottle;
     }
 }

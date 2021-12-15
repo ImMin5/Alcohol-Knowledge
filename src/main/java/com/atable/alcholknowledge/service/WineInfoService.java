@@ -5,9 +5,11 @@ import com.atable.alcholknowledge.repository.MemoryWineInfoReository;
 import com.atable.alcholknowledge.repository.WineInfoRepository;
 import org.springframework.stereotype.Service;
 
+
+import javax.transaction.Transactional;
 import java.util.List;
 
-
+@Transactional
 public class WineInfoService {
     private WineInfoRepository wineInfoRepository;
 

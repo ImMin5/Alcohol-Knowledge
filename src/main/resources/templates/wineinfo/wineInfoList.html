@@ -28,10 +28,11 @@
         <td th:text="${wineinfo.vintage}"></td>
         <td th:text="${wineinfo.price}"></td>
         <td th:text="${wineinfo.datePurchase}"></td>
-        <td th:text="${wineinfo.size}"></td>
+        <td th:text="${wineinfo.sizeBottle}"></td>
         <td th:text="${wineinfo.region}"></td>
         <td th:text="${wineinfo.store}"></td>
-        <td th:text="${wineinfo.desc}"></td>
+        <td th:if="${not #strings.isEmpty(wineinfo.description)}"
+            text="${wineinfo.description}"></td>
         <td th:text="${wineinfo.dateCreated}"></td>
       </tr>
       </tbody>

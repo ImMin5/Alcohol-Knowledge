@@ -1,22 +1,33 @@
 package com.atable.alcholknowledge.repository;
 
 import com.atable.alcholknowledge.model.WineInfo;
+import com.atable.alcholknowledge.service.WineInfoService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.swing.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@SpringBootTest
+@Transactional
 public class MemoryWineInfoRepositoryTest {
-    MemoryWineInfoReository repository = new MemoryWineInfoReository();
 
+    @Autowired WineInfoRepository repository;
+
+    /*
     @AfterEach
     public void afterEach(){
         repository.clearWineInfo();
     }
+     */
+
+
     @Test
     public void save(){
         WineInfo wineInfo = new WineInfo();

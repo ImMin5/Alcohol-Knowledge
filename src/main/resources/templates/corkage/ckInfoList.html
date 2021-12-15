@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>콜키지 매장 접수 목록</title>
+    <h1> 등록 요청된 콜키지 매장</h1>
 </head>
 <body>
 <div class="container">
@@ -22,6 +23,9 @@
                 <td>
                     <button>
                         <a th:href="@{'/corkage-store/new?id='+${store.id}}">수정</a>
+                    </button>
+                    <button>
+                        삭제
                     </button>
                 </td>
 

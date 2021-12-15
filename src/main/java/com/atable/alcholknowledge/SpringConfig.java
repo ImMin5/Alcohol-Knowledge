@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManager;
+
 import javax.sql.DataSource;
 
 @Configuration
@@ -45,11 +46,11 @@ public class SpringConfig {
     }
     @Bean
     public CorkageInfoRepository corkageInfoRepository() {
-        return new MemoryCkInfoRepository();
+        return new JpaCkInfoRepository(em);
     }
 
     @Bean
     public CorkageStoreRepository corkageStoreRepository() {
-        return new MemoryCkStoreRepository();
+        return new JpaCkStoreRepository(em);
     }
 }

@@ -6,9 +6,11 @@ import com.atable.alcholknowledge.repository.CorkageStoreRepository;
 import com.atable.alcholknowledge.repository.MemoryCkInfoRepository;
 import com.atable.alcholknowledge.repository.MemoryCkStoreRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class CorkageInfoService {
     private final CorkageInfoRepository ckInfoRepository;
     private final CorkageStoreRepository ckStoreRepository;

@@ -1,26 +1,37 @@
 package com.atable.alcholknowledge.model;
 
+import javax.naming.Name;
+import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+@Entity
 public class CorkageStore {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column (length = 50, nullable = false)
     private String name;
+
+    @Column (length = 50, nullable = false)
     private String addr;
+
+    @Column (length = 10)
     private String area;
+
     private double longitude;
+
     private double latitude;
+
+    @Column (name = "descripion")
     private String desc;
 
-    public int getIsChecked() {
-        return isChecked;
-    }
+    @Column (name = "date_update")
+    @Convert (converter = LocalDateAttributeConverter.class)
+    private LocalDateTime dateUpdate;
 
-    public void setIsChecked(int isChecked) {
-        this.isChecked = isChecked;
-    }
-
-    private int isChecked;
-    private Date dateUpdate;
     private String website;
     private String instagram;
 
@@ -99,5 +110,13 @@ public class CorkageStore {
     public void setRequiredValue(String name, String addr) {
         this.name = name;
         this.addr = addr;
+    }
+
+    public LocalDateTime getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(LocalDateTime dateUpdate) {
+        this.dateUpdate = dateUpdate;
     }
 }

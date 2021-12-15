@@ -4,11 +4,22 @@ import com.atable.alcholknowledge.repository.*;
 import com.atable.alcholknowledge.service.CorkageInfoService;
 import com.atable.alcholknowledge.service.CorkageStoreService;
 import com.atable.alcholknowledge.service.WineInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
+
 @Configuration
 public class SpringConfig {
+
+    EntityManager em;
+
+    @Autowired
+    public SpringConfig(EntityManager em) {
+        this.em = em;
+    }
+
     @Bean
     public WineInfoService wineInfoService(){
         return new WineInfoService(wineInfoRepository());
@@ -30,11 +41,11 @@ public class SpringConfig {
     }
     @Bean
     public CorkageInfoRepository corkageInfoRepository() {
-        return new MemoryCkInfoRepository();
+        return new JpaCkInfoRepository(em);
     }
 
     @Bean
     public CorkageStoreRepository corkageStoreRepository() {
-        return new MemoryCkStoreRepository();
+        return new JpaCkStoreRepository(em);
     }
 }

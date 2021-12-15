@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Controller
@@ -27,10 +30,12 @@ public class CorkageInfoController {
     }
 
     @PostMapping("/corkage-info/new")
-    public String create(CorkageInfo ckInfoForm) {
+    public String create(CkInfoForm ckInfoForm) {
         CorkageInfo corkageInfo = new CorkageInfo();
         corkageInfo.setAddr(ckInfoForm.getAddr());
+        corkageInfo.setDesc(ckInfoForm.getDesc());
 
+        corkageInfo.setDateCreate(LocalDateTime.now());
         corkageInfoService.register(corkageInfo);
         return "redirect:/corkage-store/list";
     }

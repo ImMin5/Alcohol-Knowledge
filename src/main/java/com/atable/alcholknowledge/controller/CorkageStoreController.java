@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -33,14 +34,14 @@ public class CorkageStoreController {
     }
 
     @PostMapping("/corkage-store/new")
-    public String create(CorkageStore ckStoreForm) {
+    public String create(CkStoreForm ckStoreForm) {
         CorkageStore corkageStore = new CorkageStore();
 
         corkageStore.setRequiredValue(ckStoreForm.getName(), ckStoreForm.getAddr());
         corkageStore.setDesc(ckStoreForm.getDesc());
-        corkageStore.setIsChecked(corkageStore.getIsChecked() + 1);
-        corkageStoreService.register(corkageStore);
+        corkageStore.setDateUpdate(LocalDateTime.now());
 
+        corkageStoreService.register(corkageStore);
         return "redirect:/corkage-info/list";
     }
 

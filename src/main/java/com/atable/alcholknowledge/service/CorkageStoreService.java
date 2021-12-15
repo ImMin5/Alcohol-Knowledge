@@ -4,9 +4,11 @@ import com.atable.alcholknowledge.model.CorkageStore;
 import com.atable.alcholknowledge.repository.CorkageStoreRepository;
 import com.atable.alcholknowledge.repository.MemoryCkStoreRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class CorkageStoreService {
     private final CorkageStoreRepository ckStoreRepository;
 

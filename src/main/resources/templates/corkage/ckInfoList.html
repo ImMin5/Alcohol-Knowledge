@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>콜키지 매장 접수 목록</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>주소</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="store : ${stores}">
+                <td th:text="${store.id}"></td>
+                <td th:text="${store.addr}"></td>
+                <td>
+                    <button>
+                        <a th:href="@{'/corkage-store/new?id='+${store.id}}">수정</a>
+                    </button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            <a href="/corkage-store/list">매장 목록</a>
+        </p>
+</body>
+</html>

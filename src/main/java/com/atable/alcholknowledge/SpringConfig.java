@@ -1,8 +1,8 @@
 package com.atable.alcholknowledge;
 
-import com.atable.alcholknowledge.repository.JpaWineInfoRepository;
-import com.atable.alcholknowledge.repository.MemoryWineInfoReository;
-import com.atable.alcholknowledge.repository.WineInfoRepository;
+import com.atable.alcholknowledge.repository.*;
+import com.atable.alcholknowledge.service.CorkageInfoService;
+import com.atable.alcholknowledge.service.CorkageStoreService;
 import com.atable.alcholknowledge.service.WineInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,5 +31,25 @@ public class SpringConfig {
 
         //return new MemoryWineInfoReository();
         return new JpaWineInfoRepository(em);
+    }
+
+    /* Corkage Related Beans */
+    @Bean
+    public CorkageInfoService corkageInfoService() {
+        return new CorkageInfoService(corkageInfoRepository(), corkageStoreRepository());
+    }
+
+    @Bean
+    public CorkageStoreService corkageStoreService() {
+        return new CorkageStoreService(corkageStoreRepository());
+    }
+    @Bean
+    public CorkageInfoRepository corkageInfoRepository() {
+        return new MemoryCkInfoRepository();
+    }
+
+    @Bean
+    public CorkageStoreRepository corkageStoreRepository() {
+        return new MemoryCkStoreRepository();
     }
 }

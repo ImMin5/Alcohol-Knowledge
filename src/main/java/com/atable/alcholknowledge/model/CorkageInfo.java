@@ -1,14 +1,35 @@
 package com.atable.alcholknowledge.model;
 
-import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Entity
 public class CorkageInfo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name = "description")
     private String desc;
+
+    @Column(name="ischecked")
     private int isChecked;
+
+    @Column(length = 50, nullable = false)
     private String addr;
-    private Timestamp dateCreate;
+
+    @Column(name = "datecreate")
+    @Convert(converter = LocalDateAttributeConverter.class)
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dateCreate;
+
     private String user;
 
     public long getId() {
@@ -51,11 +72,11 @@ public class CorkageInfo {
         this.user = user;
     }
 
-    public Timestamp getDateCreate() {
+    public LocalDateTime getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Timestamp dateCreate) {
+    public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
     }
 }

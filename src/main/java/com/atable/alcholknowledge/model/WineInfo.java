@@ -1,6 +1,9 @@
 package com.atable.alcholknowledge.model;
 
 import com.atable.alcholknowledge.controller.WineInfoForm;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +12,8 @@ import java.util.Locale;
 
 @Entity
 @Table(name="wineinfo")
+@Getter
+@Setter
 public class WineInfo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk;
@@ -16,14 +21,19 @@ public class WineInfo {
     private String nameEng;
     @Column(name="namekor")
     private String nameKor;
+    @Column(name="vintage")
     private int vintage;
+    @Column(name="price")
     private int price;
     @Column(name="datecreated")
     private Timestamp dateCreated;
     @Column(name="datepurchase")
     private Date datePurchase;
+    @Column(name="description")
     private String description;
+    @Column(name="store")
     private String store;
+    @Column(name="region")
     private String region;
     @Column(name="sizebottle")
     private String sizeBottle;
@@ -67,6 +77,7 @@ public class WineInfo {
     public WineInfo getInfo(){
         return this;
     }
+    @JsonIgnore
     public void setInfo(WineInfoForm form){
         this.nameEng = form.getNameEng();
         this.nameKor = form.getNameKor();
@@ -81,6 +92,11 @@ public class WineInfo {
         this.store = form.getStore();
         this.region = form.getRegion();
         this.sizeBottle = form.getSizeBottle();
+    }
+
+    @Getter
+    static class Response{
+        private WineInfo wineInfo;
     }
     //String nameEng, String nameKor, int vintage, int price, Timestamp dateCreated, Date datePurchase,
     //                        String desc, String store, String region, String size

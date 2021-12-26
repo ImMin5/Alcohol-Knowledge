@@ -2,13 +2,11 @@ package com.atable.alcholknowledge.controller;
 
 import com.atable.alcholknowledge.model.WineInfo;
 import com.atable.alcholknowledge.service.WineInfoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -45,5 +43,23 @@ public class WineInfoController {
         model.addAttribute("wineInfos" , wineInfos);
         return "home";
 
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value="/api/json",method=RequestMethod.GET)
+    @ResponseBody
+    public String show(){
+        List<WineInfo> wineInfos = wineInfoService.findWineInfos();
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonList = "";
+
+        try{
+            jsonList = mapper.writeValueAsString(wineInfos);
+        }
+        catch(Exception e){
+            System.out.println("error : "+ e);
+        }
+
+        return jsonList;
     }
 }

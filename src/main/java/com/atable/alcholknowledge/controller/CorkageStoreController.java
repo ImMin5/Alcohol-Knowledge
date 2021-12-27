@@ -34,7 +34,7 @@ public class CorkageStoreController {
     }
 
     @PostMapping("/corkage-store/new")
-    public String create(CkStoreForm ckStoreForm) {
+    public String create(CorkageStoreForm ckStoreForm) {
         CorkageStore corkageStore = new CorkageStore();
 
         corkageStore.setRequiredValue(ckStoreForm.getName(), ckStoreForm.getAddr());

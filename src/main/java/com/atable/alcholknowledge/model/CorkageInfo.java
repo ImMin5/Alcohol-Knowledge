@@ -1,5 +1,10 @@
 package com.atable.alcholknowledge.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -27,7 +32,9 @@ public class CorkageInfo {
 
     @Column(name = "datecreate")
     @Convert(converter = LocalDateAttributeConverter.class)
-    //@Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime dateCreate;
 
     private String user;

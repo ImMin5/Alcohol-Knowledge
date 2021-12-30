@@ -1,5 +1,11 @@
 package com.atable.alcholknowledge.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import javax.naming.Name;
 import javax.persistence.*;
 import java.sql.Date;
@@ -30,6 +36,9 @@ public class CorkageStore {
 
     @Column (name = "date_update")
     @Convert (converter = LocalDateAttributeConverter.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime dateUpdate;
 
     private String website;

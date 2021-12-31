@@ -1,6 +1,6 @@
 package com.atable.alcholknowledge.controller;
 
-public class CkStoreForm {
+public class CorkageStoreForm {
     private String name;
     private String addr;
     private String desc;

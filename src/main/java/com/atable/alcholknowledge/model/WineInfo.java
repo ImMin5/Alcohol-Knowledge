@@ -1,14 +1,13 @@
 package com.atable.alcholknowledge.model;
 
-import com.atable.alcholknowledge.controller.WineInfoForm;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.atable.alcholknowledge.dto.WineInfoForm;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Locale;
 
 @Entity
 @Table(name="wineinfo")
@@ -25,9 +24,9 @@ public class WineInfo {
     private int vintage;
     @Column(name="price")
     private int price;
-    @Column(name="datecreated")
+    @Column(name="datecreated")  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp dateCreated;
-    @Column(name="datepurchase")
+    @Column(name="datepurchase") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date datePurchase;
     @Column(name="description")
     private String description;
@@ -38,66 +37,21 @@ public class WineInfo {
     @Column(name="sizebottle")
     private String sizeBottle;
 
-    public void setNameEng(String nameEng) {this.nameEng = nameEng; }
-
-    public int getVintage() {return vintage; }
-    public void setVintage(int vintage) {this.vintage = vintage; }
-
-    public Timestamp getDateCreated() {return dateCreated; }
-    public void setDateCreated(Timestamp dateCreated) {this.dateCreated = dateCreated; }
-
-    public Date getDatePurchase() {return datePurchase; }
-    public void setDatePurchase(Date datePurchase) {this.datePurchase = datePurchase; }
-
-    public String getDescription() {return description; }
-    public void setDescription(String desc) {this.description = description; }
-
-    public String getStore() {return store; }
-
-    public void setStore(String store) {this.store = store; }
-
-    public String getRegion() {return region; }
-
-    public void setRegion(String region) {this.region = region; }
-
-    public String getSizeBottle() {return sizeBottle;}
-
-    public void setSizeBottle(String sizeBottle) {this.sizeBottle = sizeBottle; }
-
-    public String getNameKor(){return this.nameKor;}
-    public void setNameKor(String nameKor){ this.nameKor = nameKor;}
-    public String getNameEng(){
-        this.nameEng.toLowerCase().contains(nameEng.toLowerCase());
-        return this.nameEng;
-    }
-    public long getPk(){ return this.pk;}
-    public void setPk(long pk){ this.pk = pk;}
-    public int getPrice(){return this.price;}
-    public void setPrice(int price){ this.price = price;}
-    public WineInfo getInfo(){
-        return this;
-    }
-    @JsonIgnore
-    public void setInfo(WineInfoForm form){
-        this.nameEng = form.getNameEng();
-        this.nameKor = form.getNameKor();
-        this.vintage = form.getVintage();
-        this.price = form.getPrice();
-        this.dateCreated = form.getDateCreated();
-        this.datePurchase = form.getDatePurchase();
-        if(form.getDescription().isEmpty())
-            this.description = "";
-        else
-            this.description = form.getDescription();
-        this.store = form.getStore();
-        this.region = form.getRegion();
-        this.sizeBottle = form.getSizeBottle();
+    public WineInfo(){};
+    public WineInfo(WineInfoForm wineInfoForm){
+        this.nameEng = wineInfoForm.getNameEng();
+        this.nameKor = wineInfoForm.getNameKor();
+        this.vintage = wineInfoForm.getVintage();
+        this.price = wineInfoForm.getPrice();
+        this.dateCreated = wineInfoForm.getDateCreated();
+        this.datePurchase = wineInfoForm.getDatePurchase();
+        this.description = wineInfoForm.getDescription();
+        this.store = wineInfoForm.getStore();
+        this.region = wineInfoForm.getRegion();
+        this.sizeBottle = wineInfoForm.getSizeBottle();
     }
 
-    @Getter
-    static class Response{
-        private WineInfo wineInfo;
-    }
+
     //String nameEng, String nameKor, int vintage, int price, Timestamp dateCreated, Date datePurchase,
     //                        String desc, String store, String region, String size
 }

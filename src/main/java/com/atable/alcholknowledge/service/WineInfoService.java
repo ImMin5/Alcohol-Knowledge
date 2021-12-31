@@ -1,13 +1,14 @@
 package com.atable.alcholknowledge.service;
 
+import com.atable.alcholknowledge.dto.WineInfoDto;
 import com.atable.alcholknowledge.model.WineInfo;
-import com.atable.alcholknowledge.repository.MemoryWineInfoReository;
 import com.atable.alcholknowledge.repository.WineInfoRepository;
-import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public class WineInfoService {
@@ -22,6 +23,7 @@ public class WineInfoService {
     * */
 
     public Long submit(WineInfo wineInfo){
+        System.out.println("submit");
         wineInfoRepository.save(wineInfo);
         return wineInfo.getPk();
     }
@@ -29,21 +31,24 @@ public class WineInfoService {
     /*
      * 전체 리스트 조회
      */
-    public List<WineInfo> findWineInfos(){
-        return wineInfoRepository.findAll();
+    public List<WineInfoDto> findWineInfos(){
+        List<WineInfoDto> wineInfos = new ArrayList<>();
+        for(WineInfo wineInfo : wineInfoRepository.findAll()){
+            wineInfos.add(new WineInfoDto(wineInfo));
+        }
+        return wineInfos;
     }
 
-    /*
-    * 한글 이름으로 조회
-    */
-    public List<WineInfo> findWineInfosKor(String nameKor){
-        return wineInfoRepository.findByNameKor(nameKor);
-    }
 
     /*
-    * 영문 이름으로 조회
-    */
-    public List<WineInfo> findWineInfosEng(String nameEng){
-        return wineInfoRepository.findByNameKor(nameEng);
+    * 매개변수로 들어오는 단어가 포함되어있으면 전부 검색
+    * */
+    public List<WineInfoDto> findWineInfosByWord(String word){
+        List<WineInfoDto> wineInfos = new ArrayList<>();
+        for(WineInfo wineInfo : wineInfoRepository.findByWord(word)){
+            wineInfos.add(new WineInfoDto(wineInfo));
+        }
+        return wineInfos;
     }
+
 }

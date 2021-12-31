@@ -23,14 +23,13 @@ public class SpringConfig {
         this.em = em;
     }
 
+    /* Wine Related Beans */
     @Bean
     public WineInfoService wineInfoService(){
         return new WineInfoService(wineInfoRepository());
     }
     @Bean
     public WineInfoRepository wineInfoRepository(){
-
-        //return new MemoryWineInfoReository();
         return new JpaWineInfoRepository(em);
     }
 

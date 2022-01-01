@@ -33,7 +33,7 @@ public class JpaWineInfoRepository implements WineInfoRepository {
 
     @Override
     public List<WineInfo> findByWord(String word) {
-        List<WineInfo> wineInfos  = em.createNativeQuery("select  wi.pk, wi.nameEng ,replace(wi.nameKor,' ','') , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle from WineInfo wi where replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') like :word",WineInfo.class)
+        List<WineInfo> wineInfos  = em.createNativeQuery("select  wi.pk, wi.nameEng ,wi.nameKor, wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle from WineInfo wi where replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') like :word",WineInfo.class)
                 .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
         if(wineInfos.isEmpty() == true)
             return new ArrayList<WineInfo>();

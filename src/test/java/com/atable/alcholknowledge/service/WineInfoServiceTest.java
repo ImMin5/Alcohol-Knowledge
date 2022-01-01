@@ -82,8 +82,7 @@ class WineInfoServiceTest {
     @Test
     public void 와인정보_검색(){
         //given
-        String word = ("우 태d");
-
+        String word = ("나다");
         WineInfo wineInfo = new WineInfo();
         wineInfo.setNameKor("가나 다라");
         wineInfo.setNameEng("gana dara");
@@ -97,20 +96,8 @@ class WineInfoServiceTest {
 
         //when
         wineInfoService.submit(wineInfo);
-
-        for(WineInfoDto wdto : wineInfoService.findWineInfos()){
-            System.out.println(wdto.getNameKor());
-        }
-
-        System.out.println("=========== ");
-
         List<WineInfoDto> result = wineInfoService.findWineInfosByWord(word);
 
-        System.out.println("size : " + result.size());
-        for(WineInfoDto wdto : result){
-            System.out.println(wdto.getNameKor());
-            System.out.println(wdto.getNameEng());
-        }
         //then
         org.assertj.core.api.Assertions.assertThat(wineInfoService.findWineInfosByWord(word)).isEqualTo(result);
 

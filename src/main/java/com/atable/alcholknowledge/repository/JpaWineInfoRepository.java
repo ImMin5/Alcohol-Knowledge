@@ -2,6 +2,7 @@ package com.atable.alcholknowledge.repository;
 
 import com.atable.alcholknowledge.dto.WineInfoDto;
 import com.atable.alcholknowledge.model.WineInfo;
+import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -29,13 +30,19 @@ public class JpaWineInfoRepository implements WineInfoRepository {
 
     }
 
+
     @Override
     public List<WineInfo> findByWord(String word) {
-        return em.createQuery("select wi from WineInfo wi where wi.nameEng like :word or wi.nameKor like :word", WineInfo.class)
-                .setParameter("word",word).getResultList();
+        List<WineInfo> wineInfos  = em.createNativeQuery("select  wi.pk, wi.nameEng ,replace(wi.nameKor,' ','') , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle from WineInfo wi where replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') like :word",WineInfo.class)
+                .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
+        if(wineInfos.isEmpty() == true)
+            return new ArrayList<WineInfo>();
+        else
+            return em.createNativeQuery("select  wi.pk, wi.nameEng ,replace(wi.nameKor,' ','') , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle from WineInfo wi where replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') like :word",WineInfo.class)
+                .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
     }
     //select wi from WineInfo wi where wi.name = :nameEng
-
+    //wi.pk, wi.nameEng ,wi.nameKor , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle
     @Override
     public List<WineInfo> findAll() {
         return em.createQuery("select wi from WineInfo wi", WineInfo.class)

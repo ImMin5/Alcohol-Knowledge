@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @Setter
 public class WineInfo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long pk;
+    private Long pk;
     @Column(name="nameeng")
     private String nameEng;
     @Column(name="namekor")

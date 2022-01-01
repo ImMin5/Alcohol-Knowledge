@@ -65,7 +65,7 @@ class WineInfoServiceTest {
         wineInfo.setPrice(10000);
 
         WineInfo wineInfo2 = new WineInfo();
-        wineInfo.setNameKor("네비게이터2");
+        wineInfo.setNameKor("s");
         wineInfo.setNameEng("navi2");
         wineInfo.setPrice(10000);
         //when
@@ -79,5 +79,41 @@ class WineInfoServiceTest {
         org.assertj.core.api.Assertions.assertThat(wineInfoService.findWineInfosByWord("파이퍼")).isEqualTo(wineInfos);
     }
 
+    @Test
+    public void 와인정보_검색(){
+        //given
+        String word = ("우 태d");
+
+        WineInfo wineInfo = new WineInfo();
+        wineInfo.setNameKor("가나 다라");
+        wineInfo.setNameEng("gana dara");
+        wineInfo.setPrice(10000);
+        wineInfo.setVintage(2018);
+        wineInfo.setRegion("서울");
+        wineInfo.setStore("이마트");
+        wineInfo.setSizeBottle("750");
+        wineInfo.setDatePurchase(new Date(20210101));
+        wineInfo.setDateCreated(new Timestamp(System.currentTimeMillis()));
+
+        //when
+        wineInfoService.submit(wineInfo);
+
+        for(WineInfoDto wdto : wineInfoService.findWineInfos()){
+            System.out.println(wdto.getNameKor());
+        }
+
+        System.out.println("=========== ");
+
+        List<WineInfoDto> result = wineInfoService.findWineInfosByWord(word);
+
+        System.out.println("size : " + result.size());
+        for(WineInfoDto wdto : result){
+            System.out.println(wdto.getNameKor());
+            System.out.println(wdto.getNameEng());
+        }
+        //then
+        org.assertj.core.api.Assertions.assertThat(wineInfoService.findWineInfosByWord(word)).isEqualTo(result);
+
+    }
 
 }

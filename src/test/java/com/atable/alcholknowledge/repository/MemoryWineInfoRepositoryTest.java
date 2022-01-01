@@ -1,5 +1,6 @@
 package com.atable.alcholknowledge.repository;
 
+import com.atable.alcholknowledge.dto.WineInfoDto;
 import com.atable.alcholknowledge.model.WineInfo;
 import com.atable.alcholknowledge.service.WineInfoService;
 import org.assertj.core.api.Assertions;
@@ -20,13 +21,6 @@ public class MemoryWineInfoRepositoryTest {
 
     @Autowired WineInfoRepository repository;
 
-    /*
-    @AfterEach
-    public void afterEach(){
-        repository.clearWineInfo();
-    }
-     */
-
 
     @Test
     public void save(){
@@ -46,9 +40,9 @@ public class MemoryWineInfoRepositoryTest {
         repository.save(wineInfo);
 
         ArrayList<WineInfo> list = new ArrayList<>();
-        List<WineInfo> result = repository.findByNameKor("파이퍼하이직");
+        List<WineInfo> result = repository.findByWord("파이퍼하이직");
         //Assertions.assertEquals(repository.findAll(),result);
-        Assertions.assertThat(repository.findByNameKor("파이퍼하이직")).isEqualTo(result);
+        Assertions.assertThat(repository.findByWord("파이퍼하이직")).isEqualTo(result.get(0));
 
     }
 
@@ -70,8 +64,12 @@ public class MemoryWineInfoRepositoryTest {
         repository.save(wineInfo);
 
         List<WineInfo> result = repository.findAll();
-
         Assertions.assertThat(result.size()).isEqualTo(3);
+
+    }
+
+    @Test
+    public void findByName(String name){
 
     }
 }

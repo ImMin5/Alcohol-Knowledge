@@ -7,11 +7,11 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-public class JpaCkStoreRepository implements CorkageStoreRepository{
+public class JpaCorkageStoreRepository implements CorkageStoreRepository{
 
     private final EntityManager em;
 
-    public JpaCkStoreRepository(EntityManager em) {
+    public JpaCorkageStoreRepository(EntityManager em) {
         this.em = em;
     }
 

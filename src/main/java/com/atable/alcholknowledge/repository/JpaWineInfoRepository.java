@@ -1,8 +1,11 @@
 package com.atable.alcholknowledge.repository;
 
+import com.atable.alcholknowledge.dto.WineInfoDto;
 import com.atable.alcholknowledge.model.WineInfo;
+import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,27 +23,30 @@ public class JpaWineInfoRepository implements WineInfoRepository {
     }
 
     @Override
-    public Optional<WineInfo> findById(Long id) {
+    public WineInfo findById(Long id) {
         WineInfo wineInfo = em.find(WineInfo.class, id);
-        return Optional.ofNullable(wineInfo);
+        //return Optional.ofNullable(wineInfo);
+        return wineInfo;
 
     }
+
 
     @Override
-    public List<WineInfo> findByNameEng(String nameEng) {
-        return em.createQuery("select wi from WineInfo wi where wi.name = :nameEng", WineInfo.class)
-                .setParameter("naneEng",nameEng).getResultList();
+    public List<WineInfo> findByWord(String word) {
+        List<WineInfo> wineInfos  = em.createNativeQuery("select  wi.pk, wi.nameEng ,replace(wi.nameKor,' ','') , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle from WineInfo wi where replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') like :word",WineInfo.class)
+                .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
+        if(wineInfos.isEmpty() == true)
+            return new ArrayList<WineInfo>();
+        else
+            return em.createNativeQuery("select  wi.pk, wi.nameEng ,replace(wi.nameKor,' ','') , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle from WineInfo wi where replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') like :word",WineInfo.class)
+                .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
     }
-
-    @Override
-    public List<WineInfo> findByNameKor(String nameKor) {
-        return em.createQuery("select wi from WineInfo wi where wi.name = :nameKor", WineInfo.class)
-                .setParameter("naneEng",nameKor).getResultList();
-    }
-
+    //select wi from WineInfo wi where wi.name = :nameEng
+    //wi.pk, wi.nameEng ,wi.nameKor , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle
     @Override
     public List<WineInfo> findAll() {
         return em.createQuery("select wi from WineInfo wi", WineInfo.class)
                 .getResultList();
     }
+
 }

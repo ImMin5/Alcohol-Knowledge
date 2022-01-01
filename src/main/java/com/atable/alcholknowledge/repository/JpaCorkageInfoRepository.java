@@ -6,11 +6,11 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class JpaCkInfoRepository implements CorkageInfoRepository {
+public class JpaCorkageInfoRepository implements CorkageInfoRepository {
 
     private final EntityManager em;
 
-    public JpaCkInfoRepository(EntityManager em) {
+    public JpaCorkageInfoRepository(EntityManager em) {
         this.em = em;
     }
 

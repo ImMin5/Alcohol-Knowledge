@@ -45,11 +45,11 @@ public class SpringConfig {
     }
     @Bean
     public CorkageInfoRepository corkageInfoRepository() {
-        return new JpaCkInfoRepository(em);
+        return new JpaCorkageInfoRepository(em);
     }
 
     @Bean
     public CorkageStoreRepository corkageStoreRepository() {
-        return new JpaCkStoreRepository(em);
+        return new JpaCorkageStoreRepository(em);
     }
 }

@@ -51,4 +51,13 @@ public class WineInfoService {
         return wineInfos;
     }
 
+    public String deleteWineInfoById(Long pk){
+        if(wineInfoRepository.delete(pk) > 0){
+            return "good";
+        }
+        else
+            return "fail";
+
+    }
+
 }

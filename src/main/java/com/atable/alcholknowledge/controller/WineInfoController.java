@@ -71,9 +71,31 @@ public class WineInfoController {
             jsonList = mapper.writeValueAsString(wineInfos);
         } catch (Exception e) {
             System.out.println("error : " + e);
-        } finally {
-            return jsonList;
         }
+
+        return jsonList;
+    }
+
+    //와인정보 검색 api
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping(value = "api/wineinfo/search")
+    @ResponseBody
+    public String findWineInfos(@RequestParam String word){
+
+        System.out.println("search function in");
+        List<WineInfoDto> wineInfos = wineInfoService.findWineInfosByWord(word);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonList = "";
+
+
+        try {
+            jsonList = mapper.writeValueAsString(wineInfos);
+        } catch (Exception e) {
+            System.out.println("error : " + e);
+        }
+
+        return jsonList;
+
     }
 
     //test용 api

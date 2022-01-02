@@ -10,4 +10,5 @@ public interface WineInfoRepository {
     WineInfo findById(Long id);
     List<WineInfo> findByWord(String word);
     List<WineInfo> findAll();
+    Integer delete(Long pk);
 }

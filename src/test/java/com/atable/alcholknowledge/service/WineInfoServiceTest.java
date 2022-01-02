@@ -96,11 +96,35 @@ class WineInfoServiceTest {
 
         //when
         wineInfoService.submit(wineInfo);
-        List<WineInfoDto> result = wineInfoService.findWineInfosByWord(word);
 
         //then
+        List<WineInfoDto> result = wineInfoService.findWineInfosByWord(word);
         org.assertj.core.api.Assertions.assertThat(wineInfoService.findWineInfosByWord(word)).isEqualTo(result);
 
+    }
+
+    @Test
+    public void 와인정보_삭제(){
+        //given
+        WineInfo wineInfo = new WineInfo();
+        wineInfo.setNameKor("가나 다라");
+        wineInfo.setNameEng("gana dara");
+        wineInfo.setPrice(10000);
+        wineInfo.setVintage(2018);
+        wineInfo.setRegion("서울");
+        wineInfo.setStore("이마트");
+        wineInfo.setSizeBottle("750");
+        wineInfo.setDatePurchase(new Date(20210101));
+        wineInfo.setDateCreated(new Timestamp(System.currentTimeMillis()));
+
+        //when
+        Long pk = wineInfoService.submit(wineInfo);
+        System.out.println("pk : " + pk);
+
+
+        //then
+        String result = wineInfoService.deleteWineInfoById(pk);
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("good");
     }
 
 }

@@ -49,4 +49,9 @@ public class JpaWineInfoRepository implements WineInfoRepository {
                 .getResultList();
     }
 
+    @Override
+    public Integer delete(Long pk) {
+        return em.createQuery("delete from WineInfo wi where wi.pk =:pk").setParameter("pk",pk).executeUpdate();
+    }
+
 }

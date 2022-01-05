@@ -38,6 +38,18 @@ public class CorkageStoreController {
         return json;
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/api/corkage-store")
+    @ResponseBody
+    public String ckStoreById(@RequestParam long id) throws JsonProcessingException {
+        CorkageStore corkageStore = corkageStoreService.findOne(id).get();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = "";
+        json = objectMapper.writeValueAsString(corkageStore);
+
+        return json;
+    }
+
     @GetMapping("/corkage-store/new")
     public String createForm(@RequestParam Long id, Model model) {
         CorkageInfo ckInfo = corkageInfoService.findOne(id).get();

@@ -80,8 +80,8 @@ public class WineInfoController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "api/wineinfo/pagination")
     @ResponseBody
-    public String findWineInfosPage(@RequestParam String index ,@RequestParam String pageSize){
-        List<WineInfoDto> wineInfos = wineInfoService.findWineInfosPage(Integer.parseInt(index), Integer.parseInt(pageSize));
+    public String findWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize){
+        List<WineInfoDto> wineInfos = wineInfoService.findWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
         ObjectMapper mapper = new ObjectMapper();
         String jsonList = "";
 

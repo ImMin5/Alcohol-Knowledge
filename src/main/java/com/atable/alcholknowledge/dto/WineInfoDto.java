@@ -2,26 +2,45 @@ package com.atable.alcholknowledge.dto;
 
 import com.atable.alcholknowledge.model.WineInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Getter
+@Setter
+@AllArgsConstructor
 public class WineInfoDto {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
-    private String nameKor;
+    @Column(name="nameeng")
     private String nameEng;
+    @Column(name="namekor")
+    private String nameKor;
+    @Column(name="vintage")
     private Integer vintage;
+    @Column(name="price")
     private Integer price;
-    private String sizeBottle;
-    private String region;
-    private String store;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name="datepurchase") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date datePurchase;
+    @Column(name="description")
     private String description;
+    @Column(name="store")
+    private String store;
+    @Column(name="region")
+    private String region;
+    @Column(name="sizebottle")
+    private String sizeBottle;
 
+    public WineInfoDto(){};
     public WineInfoDto (WineInfo wineInfo) {
         this.pk = wineInfo.getPk();
         this.nameEng = wineInfo.getNameEng();

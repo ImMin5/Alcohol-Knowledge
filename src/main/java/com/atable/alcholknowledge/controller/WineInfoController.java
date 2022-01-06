@@ -62,7 +62,7 @@ public class WineInfoController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value="/api/wineinfo")
     @ResponseBody
-    public String getWineInfosAll() {
+    public String findWineInfosAll() {
         List<WineInfoDto> wineInfos = wineInfoService.findWineInfos();
         ObjectMapper mapper = new ObjectMapper();
         String jsonList = "";
@@ -75,6 +75,24 @@ public class WineInfoController {
 
         return jsonList;
     }
+
+    //와진정보 페이지네이션 api
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping(value = "api/wineinfo/pagination")
+    @ResponseBody
+    public String findWineInfosPage(@RequestParam String index ,@RequestParam String pageSize){
+        List<WineInfoDto> wineInfos = wineInfoService.findWineInfosPage(Integer.parseInt(index), Integer.parseInt(pageSize));
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonList = "";
+
+        try{
+            jsonList = mapper.writeValueAsString(wineInfos);
+        }catch (Exception e){
+            System.out.println("error : "+ e);
+        }
+        return jsonList;
+    }
+
 
     //와인정보 검색 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")

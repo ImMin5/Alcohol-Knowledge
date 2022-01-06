@@ -2,18 +2,19 @@ package com.atable.alcholknowledge.model;
 
 import com.atable.alcholknowledge.dto.WineInfoForm;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@Data
 @Entity
 @Table(name="wineinfo")
-@Getter
-@Setter
-public class WineInfo {
+public class WineInfo implements java.io.Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
     @Column(name="nameeng")
@@ -21,10 +22,10 @@ public class WineInfo {
     @Column(name="namekor")
     private String nameKor;
     @Column(name="vintage")
-    private int vintage;
+    private Integer vintage;
     @Column(name="price")
-    private int price;
-    @Column(name="datecreated")  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Integer price;
+    @Column(name="datecreated")  @CreationTimestamp @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp dateCreated;
     @Column(name="datepurchase") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date datePurchase;
@@ -38,6 +39,7 @@ public class WineInfo {
     private String sizeBottle;
 
     public WineInfo(){};
+
     public WineInfo(WineInfoForm wineInfoForm){
         this.nameEng = wineInfoForm.getNameEng();
         this.nameKor = wineInfoForm.getNameKor();

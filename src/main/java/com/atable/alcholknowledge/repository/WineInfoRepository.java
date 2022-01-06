@@ -1,8 +1,10 @@
 package com.atable.alcholknowledge.repository;
+import com.atable.alcholknowledge.dto.WineInfoDto;
 import com.atable.alcholknowledge.model.WineInfo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public interface WineInfoRepository {
@@ -11,4 +13,5 @@ public interface WineInfoRepository {
     List<WineInfo> findByWord(String word);
     List<WineInfo> findAll();
     Integer delete(Long pk);
+    List<WineInfo> findPagination(int index, int pageSize);
 }

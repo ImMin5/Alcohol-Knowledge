@@ -126,5 +126,19 @@ class WineInfoServiceTest {
         String result = wineInfoService.deleteWineInfoById(pk);
         org.assertj.core.api.Assertions.assertThat(result).isEqualTo("good");
     }
+    @Test
+    public void 와인정보_페이지네이션(){
+        //given
+        int pageSize = 1;
+        //when
+            for(int i=0; i<3; i++) {
+                List<WineInfo> result = wineInfoRepository.findPagination(i,1);
+                for(WineInfo w: result){
+                    System.out.println(w.getNameEng());
+                }
+            }
+        //then
+
+    }
 
 }

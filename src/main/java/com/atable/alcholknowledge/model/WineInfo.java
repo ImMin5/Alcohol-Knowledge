@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name="wineinfo")
-public class WineInfo implements java.io.Serializable {
+public class WineInfo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
     @Column(name="nameeng")

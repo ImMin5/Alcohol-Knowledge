@@ -14,4 +14,5 @@ public interface WineInfoRepository {
     List<WineInfo> findAll();
     Integer delete(Long pk);
     List<WineInfo> findPagination(int index, int pageSize);
+    List<WineInfo> findByWordPagination(int index, int pageSize, String word);
 }

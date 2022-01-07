@@ -141,4 +141,19 @@ class WineInfoServiceTest {
 
     }
 
+    @Test
+    public void 와인검색_페이지네이션(){
+        //given
+        int pageSize = 1;
+        //when
+        for(int i=0; i<3; i++) {
+            List<WineInfoDto> result = wineInfoService.findByWordWineInfosPage(i,2,"김민호");
+            for(WineInfoDto w: result){
+                System.out.println(w.getNameEng());
+            }
+        }
+        //then
+
+    }
+
 }

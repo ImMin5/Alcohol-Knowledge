@@ -64,9 +64,20 @@ public class WineInfoService {
     }
 
     /*
+    * 검색 페이지 네이션션
+   */
+    public List<WineInfoDto> findByWordWineInfosPage(int index, int pageSize, String word){
+        List<WineInfoDto> wineInfos = new ArrayList<>();
+        for(WineInfo wineInfo : wineInfoRepository.findByWordPagination(index, pageSize, word)){
+            if(wineInfo == null) break;
+            wineInfos.add(new WineInfoDto(wineInfo));
+        }
+        return wineInfos;
+    }
+
+    /*
     * pk로 와인정보 삭제
     * */
-
     public String deleteWineInfoById(Long pk){
         if(wineInfoRepository.delete(pk) > 0){
             return "good";

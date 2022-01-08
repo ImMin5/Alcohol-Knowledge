@@ -76,12 +76,29 @@ public class WineInfoController {
         return jsonList;
     }
 
-    //와진정보 페이지네이션 api
+    //와인정보 페이지네이션 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "api/wineinfo/pagination")
     @ResponseBody
     public String findWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize){
         List<WineInfoDto> wineInfos = wineInfoService.findWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonList = "";
+
+        try{
+            jsonList = mapper.writeValueAsString(wineInfos);
+        }catch (Exception e){
+            System.out.println("error : "+ e);
+        }
+        return jsonList;
+    }
+
+    //와인검색 페이지네이션
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping(value = "api/wineinfo/pagination/word")
+    @ResponseBody
+    public String findByWordWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize ,@RequestParam String word){
+        List<WineInfoDto> wineInfos = wineInfoService.findByWordWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize),word);
         ObjectMapper mapper = new ObjectMapper();
         String jsonList = "";
 

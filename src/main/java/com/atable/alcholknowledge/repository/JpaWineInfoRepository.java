@@ -34,15 +34,10 @@ public class JpaWineInfoRepository implements WineInfoRepository {
 
     @Override
     public List<WineInfo> findByWord(String word) {
-        List<WineInfo> wineInfos  = em.createNativeQuery("SELECT  wi.pk, wi.nameEng ,wi.nameKor, wi.vintage , wi.price " +
+        return em.createNativeQuery("SELECT  wi.pk, wi.nameEng ,wi.nameKor, wi.vintage , wi.price " +
                 ", wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle FROM WineInfo wi WHERE replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') LIKE :word",WineInfo.class)
                 .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
-        if(wineInfos.isEmpty() == true)
-            return new ArrayList<WineInfo>();
-        else
-            return em.createNativeQuery("SELECT  wi.pk, wi.nameEng ,replace(wi.nameKor,' ','') , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle " +
-                    "FROM WineInfo wi where replace(wi.nameEng, ' ','') LIKE :word or replace(wi.nameKor, ' ', '') LIKE :word",WineInfo.class)
-                .setParameter("word","%"+word.replaceAll(" ","")+"%").getResultList();
+
     }
     //select wi from WineInfo wi where wi.name = :nameEng
     //wi.pk, wi.nameEng ,wi.nameKor , wi.vintage , wi.price , wi.dateCreated , wi.datePurchase ,wi.description , wi.store , wi.region ,wi.sizeBottle
@@ -59,12 +54,19 @@ public class JpaWineInfoRepository implements WineInfoRepository {
 
     @Override
     public List<WineInfo> findPagination(int index, int pageSize) {
-        System.out.println("111");
-        TypedQuery<WineInfo> query = em.createQuery("SELECT wi FROM WineInfo wi", WineInfo.class);
-        System.out.println("2222");
+        TypedQuery<WineInfo> query = em.createQuery("SELECT wi FROM WineInfo wi ORDER BY wi.datePurchase", WineInfo.class);
         query.setFirstResult(index);
         query.setMaxResults(pageSize);
-        System.out.println("3333");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<WineInfo> findByWordPagination(int index, int pageSize, String word) {
+        TypedQuery<WineInfo> query = em.createQuery("SELECT  wi FROM WineInfo wi WHERE replace(wi.nameEng, ' ','') like :word or replace(wi.nameKor, ' ', '') LIKE :word",WineInfo.class)
+                .setParameter("word","%"+word.replaceAll(" ","")+"%");
+        query.setFirstResult(index);
+        query.setMaxResults(pageSize);
+
         return query.getResultList();
     }
 

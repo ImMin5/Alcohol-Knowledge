@@ -4,6 +4,7 @@ import com.atable.alcholknowledge.model.CorkageStore;
 
 import javax.persistence.EntityManager;
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,18 @@ public class JpaCorkageStoreRepository implements CorkageStoreRepository{
                 .setParameter("addr", addr)
                 .getResultList();
         return result.stream().findAny();
+    }
+
+    @Override
+    public List<CorkageStore> findByKeyword(String keyword) {
+        System.out.println("**SEARCH: "+keyword);
+        String sql = "SELECT * FROM corkage_store ck" +
+                " WHERE replace(ck.addr, ' ', '') LIKE :keyword" +
+                " OR replace(ck.name, ' ', '') LIKE :keyword";
+        List result = em.createNativeQuery(sql, CorkageStore.class)
+                .setParameter("keyword", keyword)
+                .getResultList();
+        return new ArrayList<CorkageStore>(result);
     }
 
     @Override

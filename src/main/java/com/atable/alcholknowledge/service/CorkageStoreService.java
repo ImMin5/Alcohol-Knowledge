@@ -38,6 +38,12 @@ public class CorkageStoreService {
     public Optional<CorkageStore> findOne(Long id) {
         return ckStoreRepository.findById(id);
     }
+
+    public List<CorkageStore> findByKeyword(String keyword) {
+        String word = "%" + keyword + "%";
+        return ckStoreRepository.findByKeyword(word);
+    }
+
     public List<CorkageStore> findCkStores() {
         return ckStoreRepository.findAll();
     }

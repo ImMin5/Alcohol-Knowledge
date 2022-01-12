@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CorkageStoreController {
@@ -48,6 +49,18 @@ public class CorkageStoreController {
         json = objectMapper.writeValueAsString(corkageStore);
 
         return json;
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/api/corkage-store/search")
+    @ResponseBody
+    public String searchCkstore(@RequestParam String keyword) throws JsonProcessingException {
+        List<CorkageStore> corkageStores = corkageStoreService.findByKeyword(keyword);
+        if (corkageStores.isEmpty())
+            return "";
+        ObjectMapper objectMapper= new ObjectMapper();
+
+        return objectMapper.writeValueAsString(corkageStores);
     }
 
     @GetMapping("/corkage-store/new")

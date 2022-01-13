@@ -42,6 +42,11 @@ public class MemoryCkStoreRepository implements CorkageStoreRepository{
     }
 
     @Override
+    public List<CorkageStore> findByKeyword(String keyword) {
+        return null;
+    }
+
+    @Override
     public List<CorkageStore> findAll() {
         return new ArrayList<>(store.values());
     }

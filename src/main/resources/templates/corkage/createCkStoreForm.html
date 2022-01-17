@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <form action="/admin/corkage-store/new" method="post">
+        <div class="form-group">
+            <p>
+                <label for="addr">주소</label>
+                <input type="text" id="addr" name="addr" readonly th:value="${ckInfo.addr}" ></p>
+            <p>
+                <label for="name">상호명</label>
+                <input type="text" id="name" name="name" placeholder="상호명을 입력하세요"></p>
+            <p>
+                <label for="desc">설명</label>
+                <input type="text" id="desc" name="desc" placeholder="설명을 적어주세요"></p>
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>

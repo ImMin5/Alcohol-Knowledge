@@ -110,5 +110,6 @@ dist
 build/
 *.iml
 /out/
-
-
+src/main/resources/application.properties
+src/main/resources/application-dev.properties
+src/main/resources/application-test.properties

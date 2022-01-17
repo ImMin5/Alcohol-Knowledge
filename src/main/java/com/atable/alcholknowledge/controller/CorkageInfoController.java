@@ -53,22 +53,22 @@ public class CorkageInfoController {
         return "redirect:/corkage-store/list";
     }
 
-    @GetMapping("/corkage-info/new")
+    @GetMapping("/admin/corkage-info/new")
     public String createForm() {
         return "corkage/createCkInfoForm";
     }
 
-    @PostMapping("/corkage-info/new")
+    @PostMapping("/admin/corkage-info/new")
     public String create(CorkageInfoForm ckInfoForm) {
         CorkageInfo corkageInfo = new CorkageInfo();
         corkageInfo.setAddr(ckInfoForm.getAddr());
         corkageInfo.setDesc(ckInfoForm.getDesc());
         corkageInfo.setDateCreate(LocalDateTime.now());
         corkageInfoService.register(corkageInfo);
-        return "redirect:/corkage-store/list";
+        return "redirect:/admin/corkage-store/list";
     }
 
-    @GetMapping("/corkage-info/list")
+    @GetMapping("/admin/corkage-info/list")
     public String list(Model model) {
         List<CorkageInfo> stores = corkageInfoService.findCkInfos();
         model.addAttribute("stores", stores);

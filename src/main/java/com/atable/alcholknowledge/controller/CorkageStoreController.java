@@ -63,14 +63,14 @@ public class CorkageStoreController {
         return objectMapper.writeValueAsString(corkageStores);
     }
 
-    @GetMapping("/corkage-store/new")
+    @GetMapping("/admin/corkage-store/new")
     public String createForm(@RequestParam Long id, Model model) {
         CorkageInfo ckInfo = corkageInfoService.findOne(id).get();
         model.addAttribute("ckInfo", ckInfo);
         return "corkage/createCkStoreForm";
     }
 
-    @PostMapping("/corkage-store/new")
+    @PostMapping("/admin/corkage-store/new")
     public String create(CorkageStoreForm ckStoreForm) {
         CorkageStore corkageStore = new CorkageStore();
 
@@ -79,10 +79,10 @@ public class CorkageStoreController {
         corkageStore.setDateUpdate(LocalDateTime.now());
 
         corkageStoreService.register(corkageStore);
-        return "redirect:/corkage-info/list";
+        return "redirect:/admin/corkage-info/list";
     }
 
-    @GetMapping("/corkage-store/list")
+    @GetMapping("/admin/corkage-store/list")
     public String list(Model model) {
         List<CorkageStore> stores = corkageStoreService.findCkStores();
         model.addAttribute("stores", stores);

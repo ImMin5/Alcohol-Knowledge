@@ -1,5 +1,6 @@
 package com.atable.alcholknowledge.controller;
 
+import com.atable.alcholknowledge.dto.CorkageStoreForm;
 import com.atable.alcholknowledge.model.CorkageInfo;
 import com.atable.alcholknowledge.model.CorkageStore;
 import com.atable.alcholknowledge.service.CorkageInfoService;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CorkageStoreController {

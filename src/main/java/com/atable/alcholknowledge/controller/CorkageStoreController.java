@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CorkageStoreController {
@@ -50,14 +51,26 @@ public class CorkageStoreController {
         return json;
     }
 
-    @GetMapping("/corkage-store/new")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/api/corkage-store/search")
+    @ResponseBody
+    public String searchCkstore(@RequestParam String keyword) throws JsonProcessingException {
+        List<CorkageStore> corkageStores = corkageStoreService.findByKeyword(keyword);
+        if (corkageStores.isEmpty())
+            return "";
+        ObjectMapper objectMapper= new ObjectMapper();
+
+        return objectMapper.writeValueAsString(corkageStores);
+    }
+
+    @GetMapping("/admin/corkage-store/new")
     public String createForm(@RequestParam Long id, Model model) {
         CorkageInfo ckInfo = corkageInfoService.findOne(id).get();
         model.addAttribute("ckInfo", ckInfo);
         return "corkage/createCkStoreForm";
     }
 
-    @PostMapping("/corkage-store/new")
+    @PostMapping("/admin/corkage-store/new")
     public String create(CorkageStoreForm ckStoreForm) {
         CorkageStore corkageStore = new CorkageStore();
 
@@ -66,10 +79,10 @@ public class CorkageStoreController {
         corkageStore.setDateUpdate(LocalDateTime.now());
 
         corkageStoreService.register(corkageStore);
-        return "redirect:/corkage-info/list";
+        return "redirect:/admin/corkage-info/list";
     }
 
-    @GetMapping("/corkage-store/list")
+    @GetMapping("/admin/corkage-store/list")
     public String list(Model model) {
         List<CorkageStore> stores = corkageStoreService.findCkStores();
         model.addAttribute("stores", stores);

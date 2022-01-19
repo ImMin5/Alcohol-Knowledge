@@ -28,12 +28,6 @@ public class WineInfoController {
 
     }
 
-    @GetMapping("/wineinfo/new")
-    public String createWineInfoForm(){
-        return "wineinfo/createWineInfoForm";
-    }
-
-
     //와인정보 생성 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/api/wineinfo")
@@ -132,6 +126,13 @@ public class WineInfoController {
         return jsonList;
 
     }
+    //와인정보 삭제 api
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping(value = "api/wineinfo")
+    @ResponseBody
+    public String deleteWineInfo(@RequestParam String pk){
+        return wineInfoService.deleteWineInfoById(Long.parseLong(pk));
+    }
 
     //test용 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -143,19 +144,3 @@ public class WineInfoController {
         return "form";
     }
 }
-
-
-
-/*
-* @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("/wineinfo/new")
-    @ResponseBody
-    public String create(WineInfoForm form){
-        //System.out.println(form);
-        form.setDateCreated(new Timestamp(System.currentTimeMillis()));
-        WineInfo wineInfo = new WineInfo();
-        System.out.println("sizeBottle : "+form.getSizeBottle());
-        wineInfoService.submit(wineInfo);
-
-        return "redirect:/";
-    }*/

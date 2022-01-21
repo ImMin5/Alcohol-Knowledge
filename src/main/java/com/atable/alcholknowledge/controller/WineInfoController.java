@@ -20,18 +20,10 @@ public class WineInfoController {
         this.wineInfoService = wineInfoService;
     }
 
-    @GetMapping("/")
-    public String list(Model model){
-        List<WineInfoDto> wineInfos = wineInfoService.findWineInfos();
-        model.addAttribute("wineInfos" , wineInfos);
-        return "home";
-
-    }
 
     //와인정보 생성 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/api/wineinfo")
-    @ResponseBody
     public String createWineInfo(@RequestBody WineInfoForm form){
         try{
             System.out.println(form.getNameEng());
@@ -57,7 +49,7 @@ public class WineInfoController {
     @GetMapping(value="/api/wineinfo")
     @ResponseBody
     public String findWineInfosAll() {
-        List<WineInfoDto> wineInfos = wineInfoService.findWineInfos();
+        List<WineInfoDto> wineInfos = wineInfoService.findWineInfoDtos();
         ObjectMapper mapper = new ObjectMapper();
         String jsonList = "";
 
@@ -73,7 +65,6 @@ public class WineInfoController {
     //와인정보 페이지네이션 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "api/wineinfo/pagination")
-    @ResponseBody
     public String findWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize){
         List<WineInfoDto> wineInfos = wineInfoService.findWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
         ObjectMapper mapper = new ObjectMapper();
@@ -90,7 +81,6 @@ public class WineInfoController {
     //와인검색 페이지네이션
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "api/wineinfo/pagination/word")
-    @ResponseBody
     public String findByWordWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize ,@RequestParam String word){
         List<WineInfoDto> wineInfos = wineInfoService.findByWordWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize),word);
         ObjectMapper mapper = new ObjectMapper();
@@ -108,7 +98,6 @@ public class WineInfoController {
     //와인정보 검색 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "api/wineinfo/search")
-    @ResponseBody
     public String findWineInfos(@RequestParam String word){
 
         System.out.println("search function in");
@@ -129,7 +118,6 @@ public class WineInfoController {
     //와인정보 삭제 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping(value = "api/wineinfo")
-    @ResponseBody
     public String deleteWineInfo(@RequestParam String pk){
         return wineInfoService.deleteWineInfoById(Long.parseLong(pk));
     }
@@ -137,7 +125,6 @@ public class WineInfoController {
     //test용 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/api/test")
-    @ResponseBody
     public String test(@RequestBody String wineInfoForm){
         //System.out.println(wineInfoForm.getNameEng());
         System.out.println(wineInfoForm);

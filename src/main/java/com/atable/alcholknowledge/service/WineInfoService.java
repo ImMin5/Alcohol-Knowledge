@@ -7,9 +7,13 @@ import com.atable.alcholknowledge.repository.WineInfoRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+
+//예외 발생시 자동을 roll-back
+//transaction begin(시작), 과 commit(끝)을 자동으로 실행해준다.
 @Transactional
 public class WineInfoService {
     private WineInfoRepository wineInfoRepository;
@@ -31,11 +35,16 @@ public class WineInfoService {
     /*
      * 전체 리스트 조회
      */
-    public List<WineInfoDto> findWineInfos(){
+    public List<WineInfoDto> findWineInfoDtos(){
         List<WineInfoDto> wineInfos = new ArrayList<>();
         for(WineInfo wineInfo : wineInfoRepository.findAll()){
             wineInfos.add(new WineInfoDto(wineInfo));
         }
+        return wineInfos;
+    }
+
+    public List<WineInfo> findWineInfos(){
+        List<WineInfo> wineInfos = wineInfoRepository.findAll();
         return wineInfos;
     }
 

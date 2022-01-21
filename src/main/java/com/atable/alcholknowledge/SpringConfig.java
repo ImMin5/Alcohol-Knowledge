@@ -25,9 +25,7 @@ public class SpringConfig {
 
     /* Wine Related Beans */
     @Bean
-    public WineInfoService wineInfoService(){
-        return new WineInfoService(wineInfoRepository());
-    }
+    public WineInfoService wineInfoService(){ return new WineInfoService(wineInfoRepository()); }
     @Bean
     public WineInfoRepository wineInfoRepository(){
         return new JpaWineInfoRepository(em);

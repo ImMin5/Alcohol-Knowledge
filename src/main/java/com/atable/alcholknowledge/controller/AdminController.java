@@ -20,18 +20,20 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin/wineinfo")
-    public String adminWineInfo(Model model){
-        List<WineInfo> wineInfos = wineInfoService.findWineInfos();
-        model.addAttribute("wineInfos", wineInfos);
-        System.out.println("size of wineinfos : " + wineInfos.size());
-        return "wineinfo/AdminWineInfoList";
-    }
-
-
     @GetMapping("/admin")
     public String adminHome(Model model){
         return "adminHome";
 
     }
+
+    @GetMapping("/admin/wineinfo")
+    public String adminWineInfo(Model model){
+        List<WineInfo> wineInfos = wineInfoService.findWineInfos();
+        model.addAttribute("wineInfos", wineInfos);
+        System.out.println("size of wineinfos : " + wineInfos.size());
+        return "wineinfo/adminWineInfoList";
+    }
+
+
+
 }

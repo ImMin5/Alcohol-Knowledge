@@ -9,9 +9,20 @@
 </head>
 <body>
 <div class="container-fluid" style="padding:0;">
-  <div class="container-fluid" style="padding:0; position:fixed; top:0; height:9%;" >
+  <div id="topContainer" class="container-fluid" style="padding:0; position:fixed; top:0; height:9%;" >
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:2%; height:100%;">
       <a class="navbar-brand" href="#">ATable</a>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin">홈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/wineinfo">와인 등록 정보</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/corkage-info/list">콜키지 등록 정보</a>
+        </li>
+      </ul>
     </nav>
   </div>
   <div class="container-fluid" style="position:fixed; top:9%;">

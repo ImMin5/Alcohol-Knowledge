@@ -1,5 +1,6 @@
 package com.atable.alcholknowledge.controller;
 
+import com.atable.alcholknowledge.dto.CorkageInfoForm;
 import com.atable.alcholknowledge.model.CorkageInfo;
 import com.atable.alcholknowledge.service.CorkageInfoService;
 import com.fasterxml.jackson.core.JsonProcessingException;

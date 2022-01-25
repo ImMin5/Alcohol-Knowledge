@@ -1,3 +1,7 @@
+# 01.25.2022
+* http response 상태에 따른 에러 처리 정리
+* DB 칼럼명 수정
+
 # 11.22~11/26
 
 https://docs.google.com/document/d/1ba54zkfm0lIfXLMB2ffifmcl4pvLK8hLuPyDJiKm5T4/edit?usp=sharing

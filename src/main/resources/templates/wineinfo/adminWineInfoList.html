@@ -45,7 +45,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="wineinfo : ${wineInfos}">
+      <tr th:each="wineinfo : ${wineInfos}"  th:id="'wineinfo_'+${wineinfo.pk}">
         <td th:text="${wineinfo.pk}"></td>
         <td th:text="${wineinfo.nameEng}"></td>
         <td th:text="${wineinfo.nameKor}"></td>
@@ -60,8 +60,8 @@
         <td th:text="${wineinfo.description}"></td>
         <td th:text="${wineinfo.dateCreated}"></td>
         <td>
-          <button id="wineInfoEditBtn" type="button" class="btn btn-dark">수정 </button>
-          <button id="wineInfoDeleteBtn" th:attr="data-pk=${wineinfo.pk}" type="button" class="btn btn-dark">삭제</button>
+          <button id="wineinfo_edit_btn" type="button" class="btn btn-dark">수정 </button>
+          <button id="wineinfo_delete_btn" th:attr="data-pk=${wineinfo.pk}" type="button" class="btn btn-dark">삭제</button>
         </td>
       </tr>
       </tbody>
@@ -86,9 +86,27 @@
 </div> <!-- /container -->
 <script>
 
-  $(document).on('click', '#wineInfoDeleteBtn', function(e) {
+  $(document).on('click', '#wineinfo_delete_btn', function(e) {
 			console.log("delete");
-			var pk = $('#wineInfoDeleteBtn').attr('pk');
+			var pk = $(this).attr('data-pk');
+			$.ajax({
+			  url : '/api/wineinfo',
+			  type : 'DELETE',
+			  dataType :'json',
+			  data : {
+			    'pk' : pk,
+			  },
+			  success : function(header,data){
+			  console.log(header);
+			  console.log('data ' + data);
+			    $('#wineinfo_'+pk).remove();
+			  },
+			  error : function(error){
+			  console.log("fail");
+			    console.log(e.resultCode);
+			  }
+			});
+
 			console.log(pk);
 		});
 

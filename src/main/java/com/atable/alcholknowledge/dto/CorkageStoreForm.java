@@ -1,4 +1,4 @@
-package com.atable.alcholknowledge.controller;
+package com.atable.alcholknowledge.dto;
 
 public class CorkageStoreForm {
     private String name;

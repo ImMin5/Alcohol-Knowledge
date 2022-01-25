@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 public class CorkageStore {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column (length = 50, nullable = false)

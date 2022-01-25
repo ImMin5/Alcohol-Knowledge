@@ -57,8 +57,33 @@ public class JpaCorkageStoreRepository implements CorkageStoreRepository{
     }
 
     @Override
+    public List<CorkageStore> findPageByKeyword(String keyword, int index, int pageSize) {
+        String sql = "SELECT * FROM corkage_store ck" +
+                " WHERE replace(ck.addr, ' ', '') LIKE :keyword" +
+                " OR replace(ck.name, ' ', '') LIKE :keyword";
+
+        List result =  em.createNativeQuery(sql, CorkageStore.class)
+                .setParameter("keyword", keyword)
+                .setFirstResult(index)
+                .setMaxResults(pageSize)
+                .getResultList();
+
+        return new ArrayList<CorkageStore>(result);
+    }
+
+        @Override
     public List<CorkageStore> findAll() {
         return em.createQuery("Select ckStore from CorkageStore ckStore", CorkageStore.class)
                 .getResultList();
+    }
+
+    @Override
+    public List<CorkageStore> findPage(int index, int pageSize) {
+        List<CorkageStore> result = em.createQuery("select ckStore from CorkageStore ckStore", CorkageStore.class)
+                .setFirstResult(index)
+                .setMaxResults(pageSize)
+                .getResultList();
+
+        return result;
     }
 }

@@ -89,10 +89,10 @@ public class WineInfoService {
     * */
     public String deleteWineInfoById(Long pk){
         if(wineInfoRepository.delete(pk) > 0){
-            return "good";
+            return "success";
         }
         else
-            return "fail";
+            return "failed";
 
     }
 

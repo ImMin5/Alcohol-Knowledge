@@ -47,8 +47,18 @@ public class MemoryCkStoreRepository implements CorkageStoreRepository{
     }
 
     @Override
+    public List findPageByKeyword(String keyword, int index, int pageSize) {
+        return null;
+    }
+
+    @Override
     public List<CorkageStore> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    @Override
+    public List<CorkageStore> findPage(int index, int pageSize) {
+        return null;
     }
 
     public void clearStore() {

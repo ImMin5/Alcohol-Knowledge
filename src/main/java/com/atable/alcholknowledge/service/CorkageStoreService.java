@@ -44,7 +44,16 @@ public class CorkageStoreService {
         return ckStoreRepository.findByKeyword(word);
     }
 
+    public List<CorkageStore> findByKeyWord(String keyword, int pageIndex, int pageSize) {
+        String word = "%" + keyword + "%";
+        return ckStoreRepository.findPageByKeyword(word, pageIndex, pageSize);
+    }
+
     public List<CorkageStore> findCkStores() {
         return ckStoreRepository.findAll();
+    }
+
+    public List<CorkageStore> findCkStores(int pageIndex, int pageSize) {
+        return ckStoreRepository.findPage(pageIndex, pageSize);
     }
 }

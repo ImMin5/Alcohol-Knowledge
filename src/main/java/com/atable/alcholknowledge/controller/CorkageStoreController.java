@@ -30,8 +30,8 @@ public class CorkageStoreController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/corkage-store/list")
     @ResponseBody
-    public String ckStoreListToJson() throws JsonProcessingException {
-        List<CorkageStore> stores = corkageStoreService.findCkStores();
+    public String ckStoreListToJson(@RequestParam("idx") int pageIndex, @RequestParam("size") int pageSize) throws JsonProcessingException {
+        List<CorkageStore> stores = corkageStoreService.findCkStores(pageIndex, pageSize);
         ObjectMapper objectMapper = new ObjectMapper();
         String json = "";
         json = objectMapper.writeValueAsString(stores);
@@ -54,8 +54,10 @@ public class CorkageStoreController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/corkage-store/search")
     @ResponseBody
-    public String searchCkstore(@RequestParam String keyword) throws JsonProcessingException {
-        List<CorkageStore> corkageStores = corkageStoreService.findByKeyword(keyword);
+    public String searchCkstore(@RequestParam String keyword,
+                                @RequestParam("idx") int pageIndex,
+                                @RequestParam("size") int pageSize) throws JsonProcessingException {
+        List<CorkageStore> corkageStores = corkageStoreService.findByKeyWord(keyword, pageIndex, pageSize);
         if (corkageStores.isEmpty())
             return "";
         ObjectMapper objectMapper= new ObjectMapper();

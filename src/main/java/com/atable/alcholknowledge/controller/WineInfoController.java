@@ -2,12 +2,21 @@ package com.atable.alcholknowledge.controller;
 
 import com.atable.alcholknowledge.dto.WineInfoDto;
 import com.atable.alcholknowledge.dto.WineInfoForm;
+import com.atable.alcholknowledge.model.Message;
 import com.atable.alcholknowledge.model.WineInfo;
 import com.atable.alcholknowledge.service.WineInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -47,12 +56,10 @@ public class WineInfoController {
     //와인정보 조회 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value="/api/wineinfo")
-    @ResponseBody
     public String findWineInfosAll() {
         List<WineInfoDto> wineInfos = wineInfoService.findWineInfoDtos();
         ObjectMapper mapper = new ObjectMapper();
         String jsonList = "";
-
         try {
             jsonList = mapper.writeValueAsString(wineInfos);
         } catch (Exception e) {
@@ -62,9 +69,34 @@ public class WineInfoController {
         return jsonList;
     }
 
+    //와인정보 삭제 api
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping(value = "/api/wineinfo")
+    public ResponseEntity<Message> deleteWineInfo(@RequestParam String pk)  {
+        //String msg = wineInfoService.deleteWineInfoById(Long.parseLong(pk));
+
+        Message message = new Message();
+        HttpHeaders headers= new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+        message.setStatus(HttpStatus.OK);
+        message.setMessage("성공 코드");
+        String msg ="success";
+        System.out.println(msg);
+        if(msg.equals("success") == true){
+            return new ResponseEntity<Message>(message, headers, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<Message>(message, headers, HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
+
     //와인정보 페이지네이션 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping(value = "api/wineinfo/pagination")
+    @GetMapping(value = "/api/wineinfo/pagination")
     public String findWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize){
         List<WineInfoDto> wineInfos = wineInfoService.findWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
         ObjectMapper mapper = new ObjectMapper();
@@ -80,7 +112,7 @@ public class WineInfoController {
 
     //와인검색 페이지네이션
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping(value = "api/wineinfo/pagination/word")
+    @GetMapping(value = "/api/wineinfo/pagination/word")
     public String findByWordWineInfosPage(@RequestParam String pageIndex ,@RequestParam String pageSize ,@RequestParam String word){
         List<WineInfoDto> wineInfos = wineInfoService.findByWordWineInfosPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize),word);
         ObjectMapper mapper = new ObjectMapper();
@@ -97,7 +129,7 @@ public class WineInfoController {
 
     //와인정보 검색 api
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping(value = "api/wineinfo/search")
+    @GetMapping(value = "/api/wineinfo/search")
     public String findWineInfos(@RequestParam String word){
 
         System.out.println("search function in");
@@ -114,12 +146,6 @@ public class WineInfoController {
 
         return jsonList;
 
-    }
-    //와인정보 삭제 api
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @DeleteMapping(value = "api/wineinfo")
-    public String deleteWineInfo(@RequestParam String pk){
-        return wineInfoService.deleteWineInfoById(Long.parseLong(pk));
     }
 
     //test용 api

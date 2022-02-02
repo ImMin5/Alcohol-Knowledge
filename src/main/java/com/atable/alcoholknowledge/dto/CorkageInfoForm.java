@@ -3,6 +3,7 @@ package com.atable.alcoholknowledge.dto;
 public class CorkageInfoForm {
     private String addr;
     private String desc;
+    private String name;
 
     public String getDesc() {
         return desc;
@@ -18,5 +19,13 @@ public class CorkageInfoForm {
 
     public void setAddr(String addr) {
         this.addr = addr;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

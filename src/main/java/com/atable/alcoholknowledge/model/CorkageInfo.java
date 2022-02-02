@@ -16,6 +16,8 @@ public class CorkageInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String name;
+
     @Column(name = "description")
     private String desc;
 
@@ -40,6 +42,14 @@ public class CorkageInfo {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDesc() {

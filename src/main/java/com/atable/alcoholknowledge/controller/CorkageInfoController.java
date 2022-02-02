@@ -46,6 +46,7 @@ public class CorkageInfoController {
         corkageInfo.setAddr(ckInfoForm.getAddr());
         corkageInfo.setDesc(ckInfoForm.getDesc());
         corkageInfo.setDateCreate(LocalDateTime.now());
+        corkageInfo.setName(ckInfoForm.getName());
         corkageInfoService.register(corkageInfo);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -65,6 +66,7 @@ public class CorkageInfoController {
         corkageInfo.setAddr(ckInfoForm.getAddr());
         corkageInfo.setDesc(ckInfoForm.getDesc());
         corkageInfo.setDateCreate(LocalDateTime.now());
+        corkageInfo.setName(ckInfoForm.getName());
         corkageInfoService.register(corkageInfo);
         return "redirect:/admin/corkage-store/list";
     }

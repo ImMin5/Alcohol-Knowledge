@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
+@RestController
 public class CorkageStoreController {
 
     private final CorkageStoreService corkageStoreService;
@@ -29,7 +29,6 @@ public class CorkageStoreController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/corkage-store/list")
-    @ResponseBody
     public String ckStoreListToJson(@RequestParam("idx") int pageIndex, @RequestParam("size") int pageSize) throws JsonProcessingException {
         List<CorkageStore> stores = corkageStoreService.findCkStores(pageIndex, pageSize);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -41,7 +40,6 @@ public class CorkageStoreController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/corkage-store")
-    @ResponseBody
     public String ckStoreById(@RequestParam long id) throws JsonProcessingException {
         CorkageStore corkageStore = corkageStoreService.findOne(id).get();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,7 +51,6 @@ public class CorkageStoreController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/corkage-store/search")
-    @ResponseBody
     public String searchCkstore(@RequestParam String keyword,
                                 @RequestParam("idx") int pageIndex,
                                 @RequestParam("size") int pageSize) throws JsonProcessingException {
@@ -63,32 +60,5 @@ public class CorkageStoreController {
         ObjectMapper objectMapper= new ObjectMapper();
 
         return objectMapper.writeValueAsString(corkageStores);
-    }
-
-    @GetMapping("/admin/corkage-store/new")
-    public String createForm(@RequestParam Long id, Model model) {
-        CorkageInfo ckInfo = corkageInfoService.findOne(id).get();
-        model.addAttribute("ckInfo", ckInfo);
-        return "corkage/createCkStoreForm";
-    }
-
-    @PostMapping("/admin/corkage-store/new")
-    public String create(CorkageStoreForm ckStoreForm) {
-        CorkageStore corkageStore = new CorkageStore();
-
-        corkageStore.setRequiredValue(ckStoreForm.getName(), ckStoreForm.getAddr());
-        corkageStore.setDesc(ckStoreForm.getDesc());
-        corkageStore.setDateUpdate(LocalDateTime.now());
-
-        corkageStoreService.register(corkageStore);
-        return "redirect:/admin/corkage-info/list";
-    }
-
-    @GetMapping("/admin/corkage-store/list")
-    public String list(Model model) {
-        List<CorkageStore> stores = corkageStoreService.findCkStores();
-        model.addAttribute("stores", stores);
-
-        return "corkage/ckStoreList";
     }
 }

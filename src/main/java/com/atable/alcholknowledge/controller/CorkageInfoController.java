@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
+@RestController
 public class CorkageInfoController {
 
     private final CorkageInfoService corkageInfoService;
@@ -25,7 +25,6 @@ public class CorkageInfoController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/corkage-info/list")
-    @ResponseBody
     public String ckInfoListToJson() throws JsonProcessingException {
         List<CorkageInfo> stores = corkageInfoService.findCkInfos();
         ObjectMapper mapper = new ObjectMapper();
@@ -52,29 +51,6 @@ public class CorkageInfoController {
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(objectMapper.writeValueAsString(ckInfoForm));
 
-        return "redirect:/corkage-store/list";
-    }
-
-    @GetMapping("/admin/corkage-info/new")
-    public String createForm() {
-        return "corkage/createCkInfoForm";
-    }
-
-    @PostMapping("/admin/corkage-info/new")
-    public String create(CorkageInfoForm ckInfoForm) {
-        CorkageInfo corkageInfo = new CorkageInfo();
-        corkageInfo.setAddr(ckInfoForm.getAddr());
-        corkageInfo.setDesc(ckInfoForm.getDesc());
-        corkageInfo.setDateCreate(LocalDateTime.now());
-        corkageInfo.setName(ckInfoForm.getName());
-        corkageInfoService.register(corkageInfo);
-        return "redirect:/admin/corkage-store/list";
-    }
-
-    @GetMapping("/admin/corkage-info/list")
-    public String list(Model model) {
-        List<CorkageInfo> stores = corkageInfoService.findCkInfos();
-        model.addAttribute("stores", stores);
-        return "corkage/ckInfoList";
+        return "";
     }
 }

@@ -18,15 +18,15 @@ import java.sql.Date;
 public class WineInfoDto {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
-    @Column(name="nameeng")
+    @Column(name="name_eng")
     private String nameEng;
-    @Column(name="namekor")
+    @Column(name="name_kor")
     private String nameKor;
     @Column(name="vintage")
     private Integer vintage;
     @Column(name="price")
     private Integer price;
-    @Column(name="datepurchase") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name="date_purchase") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date datePurchase;
     @Column(name="description")
     private String description;
@@ -34,7 +34,7 @@ public class WineInfoDto {
     private String store;
     @Column(name="region")
     private String region;
-    @Column(name="sizebottle")
+    @Column(name="size_bottle")
     private String sizeBottle;
 
     public WineInfoDto(){};

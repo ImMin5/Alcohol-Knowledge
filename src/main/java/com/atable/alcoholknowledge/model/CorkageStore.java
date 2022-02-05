@@ -28,7 +28,7 @@ public class CorkageStore {
 
     private double latitude;
 
-    @Column (name = "descripion")
+    @Column (name = "description")
     private String desc;
 
     @Column (name = "date_update")

@@ -21,13 +21,13 @@ public class CorkageInfo {
     @Column(name = "description")
     private String desc;
 
-    @Column(name="ischecked")
+    @Column(name="is_checked")
     private int isChecked;
 
     @Column(length = 50, nullable = false)
     private String addr;
 
-    @Column(name = "datecreate")
+    @Column(name = "date_create")
     @Convert(converter = LocalDateAttributeConverter.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

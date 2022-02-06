@@ -6,6 +6,8 @@ import com.atable.alcoholknowledge.service.CorkageInfoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,17 +42,30 @@ public class CorkageInfoController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("api/corkage-info/new")
-    public String createCkInfoFromJson(@RequestBody CorkageInfoForm ckInfoForm) throws JsonProcessingException {
+    public ResponseEntity<String> createCkInfoFromJson(@RequestBody CorkageInfoForm ckInfoForm) throws JsonProcessingException {
         CorkageInfo corkageInfo = new CorkageInfo();
         corkageInfo.setAddr(ckInfoForm.getAddr());
         corkageInfo.setDesc(ckInfoForm.getDesc());
         corkageInfo.setDateCreate(LocalDateTime.now());
         corkageInfo.setName(ckInfoForm.getName());
-        corkageInfoService.register(corkageInfo);
+        long id = corkageInfoService.register(corkageInfo);
+        if (id == -1L) {
+            return ResponseEntity.accepted()
+                    .headers(new HttpHeaders())
+                    .body("이미 접수 요청된 장소입니다.");
+        }
 
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(objectMapper.writeValueAsString(ckInfoForm));
-
-        return "";
+        /*
+        To-do: Uri needed with status:created
+        URI uri = WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(CorkageStoreController.class)
+                        .ckStoreListToJson(0, 10))
+                .toUri();
+         */
+        return ResponseEntity.ok()
+                .headers(new HttpHeaders())
+                .body("");
     }
 }

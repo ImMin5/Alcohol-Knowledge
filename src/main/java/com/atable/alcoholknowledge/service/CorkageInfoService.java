@@ -22,16 +22,17 @@ public class CorkageInfoService {
         콜키지 매장 접수
          */
     public Long register(CorkageInfo ckInfo) {
-        validateDuplicateStore(ckInfo);
+        if (!validateDuplicateStore(ckInfo)) {
+            return -1L;
+        }
         ckInfoRepository.save(ckInfo);
         return ckInfo.getId();
     }
 
-    private void validateDuplicateStore(CorkageInfo ckInfo) {
-        ckStoreRepository.findByAddr(ckInfo.getAddr())
-                        .ifPresent(m -> {
-                            throw new IllegalStateException("이미 접수 요청된 장소입니다.");
-                        });
+    private boolean validateDuplicateStore(CorkageInfo ckInfo) {
+        if (ckStoreRepository.findByAddr(ckInfo.getAddr()).isPresent())
+            return false;
+        return true;
     }
 
     /*

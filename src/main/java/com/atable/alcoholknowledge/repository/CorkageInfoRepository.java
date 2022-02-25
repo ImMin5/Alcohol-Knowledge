@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface CorkageInfoRepository {
     CorkageInfo save(CorkageInfo cInfo);
+    void checkAsCorkageStore(Long id);
     Optional<CorkageInfo> findById(Long id);
+    Long findByAddr(String Address);
     List<CorkageInfo> findAll();
 }

@@ -1,6 +1,7 @@
 package com.atable.alcoholknowledge.service;
 
 import com.atable.alcoholknowledge.model.CorkageStore;
+import com.atable.alcoholknowledge.repository.MemoryCkInfoRepository;
 import com.atable.alcoholknowledge.repository.MemoryCkStoreRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ class CorkageStoreServiceTest {
     @BeforeEach
     void beforeEach() {
         ckStoreRepository = new MemoryCkStoreRepository();
-        ckStoreService = new CorkageStoreService(ckStoreRepository);
+        ckStoreService = new CorkageStoreService(new MemoryCkInfoRepository(), ckStoreRepository);
     }
 
     @AfterEach

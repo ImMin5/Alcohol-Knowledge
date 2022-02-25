@@ -1,6 +1,7 @@
 package com.atable.alcoholknowledge.service;
 
 import com.atable.alcoholknowledge.model.CorkageStore;
+import com.atable.alcoholknowledge.repository.CorkageInfoRepository;
 import com.atable.alcoholknowledge.repository.CorkageStoreRepository;
 
 import javax.transaction.Transactional;
@@ -9,16 +10,22 @@ import java.util.Optional;
 
 @Transactional
 public class CorkageStoreService {
+    private final CorkageInfoRepository ckInfoRepository;
     private final CorkageStoreRepository ckStoreRepository;
 
-    public CorkageStoreService(CorkageStoreRepository ckStoreRepository) {
+    public CorkageStoreService(CorkageInfoRepository ckInfoRepository, CorkageStoreRepository ckStoreRepository) {
         this.ckStoreRepository = ckStoreRepository;
-
+        this.ckInfoRepository = ckInfoRepository;
     }
 
     public Long register(CorkageStore ckStore) {
-        validateDuplicateStore(ckStore);
-        ckStoreRepository.save(ckStore);
+        try{
+            validateDuplicateStore(ckStore);
+            ckStoreRepository.save(ckStore);
+        } catch (IllegalStateException e) {
+            Long ckInfoId = ckInfoRepository.findByAddr(ckStore.getAddr());
+            ckInfoRepository.checkAsCorkageStore(ckInfoId);
+        }
 
         return ckStore.getId();
     }

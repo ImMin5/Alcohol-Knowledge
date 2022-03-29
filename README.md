@@ -13,6 +13,8 @@ java –jar [name-of-jar-file].jar
 nohup java –jar [name-of-jar-file].jar &
 
 ```
+- 외부에서 설정파일 불러오기
+- java -jar app.jar --spring.config.location=file:d:\properties\application.properties
 - 실행 확인
 ```
 ps -ef | grep java

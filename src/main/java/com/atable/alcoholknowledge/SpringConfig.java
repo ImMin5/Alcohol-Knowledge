@@ -40,7 +40,7 @@ public class SpringConfig {
 
     @Bean
     public CorkageStoreService corkageStoreService() {
-        return new CorkageStoreService(corkageStoreRepository());
+        return new CorkageStoreService(corkageInfoRepository(), corkageStoreRepository());
     }
     @Bean
     public CorkageInfoRepository corkageInfoRepository() {

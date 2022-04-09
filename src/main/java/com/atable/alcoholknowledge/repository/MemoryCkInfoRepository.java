@@ -28,4 +28,13 @@ public class MemoryCkInfoRepository implements CorkageInfoRepository{
     public void clearStore() {
         store.clear();
     }
+
+    @Override
+    public void checkAsCorkageStore(Long id) {
+    }
+
+    @Override
+    public Long findByAddr(String Address) {
+        return 0L;
+    }
 }

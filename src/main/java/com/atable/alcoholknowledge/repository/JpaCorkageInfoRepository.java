@@ -21,9 +21,24 @@ public class JpaCorkageInfoRepository implements CorkageInfoRepository {
     }
 
     @Override
+    public void checkAsCorkageStore(Long id) {
+        CorkageInfo corkageInfo = em.find(CorkageInfo.class, id);
+        corkageInfo.setChecked(corkageInfo.isChecked() + 1);
+    }
+
+    @Override
     public Optional<CorkageInfo> findById(Long id) {
         CorkageInfo ckInfo = em.find(CorkageInfo.class, id);
         return Optional.ofNullable(ckInfo);
+    }
+
+    @Override
+    public Long findByAddr(String addr) {
+        List<CorkageInfo> result = em.createQuery("SELECT ckInfo FROM CorkageInfo AS ckInfo WHERE ckInfo.addr = :addr", CorkageInfo.class)
+                .setParameter("addr", addr)
+                .getResultList();
+        Long id = ((result.isEmpty() ? 0L : result.stream().findFirst().get().getId()));
+        return id;
     }
 
     @Override
